@@ -2,8 +2,7 @@ from datetime import datetime
 from sqlalchemy import String, DateTime, func
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column
 
-Base = declarative_base()
-
+from database.base import Base
 
 class User(Base):
     __tablename__ = "auth_users"

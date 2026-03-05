@@ -1,11 +1,13 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from api import grass_finder
+from api import grass_finder, auth
 from core.config import CONFIG
 from database.connection import engine, AsyncSessionLocal
 from database.crud import seed_grass
-from database.models.grass_models import Base
+from database.base import Base
+from database.models.grass_models import Grass
+from database.models.users import User
 
 @asynccontextmanager
 async def lifespan(app: FastAPI):
@@ -28,3 +30,4 @@ async def main():
     return {"message": "Hello World"}
 
 app.include_router(grass_finder.router, prefix="/api")
+app.include_router(auth.router, prefix="/api")

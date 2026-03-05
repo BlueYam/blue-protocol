@@ -1,7 +1,7 @@
 from sqlalchemy import String
 from sqlalchemy.orm import declarative_base, Mapped, mapped_column
 
-Base = declarative_base()
+from database.base import Base
 
 class Grass(Base):
     __tablename__ = "grass_finder"
