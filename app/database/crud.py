@@ -24,7 +24,10 @@ async def update_grass(db: AsyncSession, db_grass: Grass, grass_update: GrassUpd
     await db.commit()
     await db.refresh(db_grass)
 
-    return db_grass
+async def delete_grass(db: AsyncSession, db_grass: Grass) -> Grass:
+    await db.delete(db_grass)
+    await db.commit()
+    return True
 
 async def seed_grass(db: AsyncSession):
     result = await db.execute(select(Grass))

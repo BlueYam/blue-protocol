@@ -4,7 +4,7 @@ from sqlalchemy.future import select
 
 import random
 from database.connection import get_db
-from database.crud import create_grass, update_grass, get_all_grass
+from database.crud import create_grass, update_grass, get_all_grass, delete_grass
 from schemas.grass import GrassBase, GrassResponse, GrassUpdate
 from database.models.grass_models import Grass
 
@@ -28,6 +28,20 @@ async def patch_grass(
         raise HTTPException(status_code=404, detail="Grass not found")
 
     return await update_grass(db, db_grass, grass_update)
+
+@router.delete("/delete/{grass_id}", status_code=204)
+async def grass_delete_endpoints(
+    grass_id: int,
+    db: AsyncSession = Depends(get_db),
+):
+    result = await db.execute(select(Grass).filter(Grass.id == grass_id))
+    db_grass = result.scalars().first()
+
+    if not db_grass:
+        raise HTTPException(status_code=404, detail="Grass not found")
+    
+    await delete_grass(db, db_grass)
+    return None
 
 @router.get("/find")
 async def get_grass(db: AsyncSession = Depends(get_db)):
