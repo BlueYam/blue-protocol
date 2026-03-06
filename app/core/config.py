@@ -16,7 +16,7 @@ class Settings(BaseSettings):
     ALGORITHM: str = "HS256"
     ACCESS_TOKEN_EXPIRE_MINUTES: int = 30
 
-    DB_NAME: str = "grass.db"
+    DB_NAME: str
     
     @computed_field
     @property

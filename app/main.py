@@ -6,11 +6,12 @@ from core.config import CONFIG
 from database.connection import engine, AsyncSessionLocal
 from database.crud import seed_grass
 from database.base import Base
-from database.models.grass_models import Grass
-from database.models.users import User
 
 @asynccontextmanager
-async def lifespan(app: FastAPI):
+async def lifespan(_app: FastAPI):
+    if not CONFIG.SECRET_KEY:
+        raise ValueError("SECRET_KEY is not set in the configuration.")
+    
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
