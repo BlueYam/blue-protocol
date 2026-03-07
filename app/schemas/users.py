@@ -3,6 +3,7 @@ from datetime import datetime
 from typing import Optional, Annotated
 import string
 
+
 def validate_password_strength(password: str) -> str:
     if not any(char.isdigit() for char in password):
         raise ValueError("Password must contain at least one digit.")
@@ -19,9 +20,16 @@ ValidatedPassword = Annotated[
     str, Field(min_length=8, max_length=128), AfterValidator(validate_password_strength)
 ]
 UsernameField = Annotated[
-    str, Field(min_length=3, max_length=50, pattern="^[a-zA-Z0-9_.-]+$", examples=["johndoe_99"])
+    str,
+    Field(
+        min_length=3,
+        max_length=50,
+        pattern="^[a-zA-Z0-9_.-]+$",
+        examples=["johndoe_99"],
+    ),
 ]
 PasswordField = Annotated[str, Field(min_length=8, max_length=128)]
+
 
 class UserBase(BaseModel):
     username: UsernameField

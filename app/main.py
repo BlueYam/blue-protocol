@@ -7,11 +7,12 @@ from database.connection import engine, AsyncSessionLocal
 from database.crud import seed_grass
 from database.base import Base
 
+
 @asynccontextmanager
 async def lifespan(_app: FastAPI):
     if not CONFIG.SECRET_KEY:
         raise ValueError("SECRET_KEY is not set in the configuration.")
-    
+
     async with engine.begin() as conn:
         await conn.run_sync(Base.metadata.create_all)
 
@@ -19,16 +20,19 @@ async def lifespan(_app: FastAPI):
         await seed_grass(session)
     yield
 
+
 app = FastAPI(
     title=CONFIG.PROJECT_NAME,
     version=CONFIG.PROJECT_VERSION,
     description="Grass Finder API",
-    lifespan=lifespan
+    lifespan=lifespan,
 )
+
 
 @app.get("/")
 async def main():
     return {"message": "Hello World"}
+
 
 app.include_router(grass_finder.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")

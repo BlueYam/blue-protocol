@@ -37,6 +37,8 @@ cd blue-protocol
 # Create environment and sync dependencies
 uv sync
 
+# Create a .env or use the provided .env.example (remove the .example)
+
 # Awaken the engine
 uv run fastapi dev
 ```
