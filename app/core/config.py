@@ -1,6 +1,7 @@
 from pydantic import computed_field
 from pydantic_settings import BaseSettings, SettingsConfigDict
 from pathlib import Path
+import logging
 
 BASE_DIR = Path(__file__).resolve().parents[2]
 
@@ -27,4 +28,5 @@ class Settings(BaseSettings):
 
 CONFIG = Settings()
 
-print(f"DEBUG: Database path is {BASE_DIR / CONFIG.DB_NAME}")
+logger = logging.getLogger("uvicorn.error")
+logger.info(f"Database path initialized at: {BASE_DIR / CONFIG.DB_NAME}")

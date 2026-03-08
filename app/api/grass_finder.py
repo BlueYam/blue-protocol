@@ -17,7 +17,7 @@ from database.models.users import User
 from api.deps import get_current_user
 
 router = APIRouter(
-    prefix="/grass-finder", tags=["grass"],
+    prefix="/grass-finder", tags=["grass"], dependencies=[Depends(get_current_user)]
 )
 
 CurrentUser = Annotated[User, Depends(get_current_user)]
