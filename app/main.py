@@ -31,7 +31,7 @@ app = FastAPI(
 
 @app.get("/")
 async def main():
-    return {"message": "Hello World"}
+    return {"message": "Goodbye, World"}
 
 
 app.include_router(grass_finder.router, prefix="/api")

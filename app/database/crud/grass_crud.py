@@ -40,29 +40,34 @@ async def seed_grass(db: AsyncSession):
     if not result.scalars().first():
         initial_grass = [
             Grass(
-                plant="Wood Sorrel",
-                location="Behind Starry Live House",
-                flavor="Citrusy, high acidity",
+                plant="Wood Sorrel (Oxalis)",
+                location="Damp, shaded cracks in concrete retaining walls",
+                flavor="Sharp, oxalic sting; like a lemon-scented battery.",
             ),
             Grass(
-                plant="Dandelion Greens",
-                location="Shimokitazawa Park",
-                flavor="Bitter, like our last ticket sales",
+                plant="Hairy Bittercress",
+                location="Neglected gravel driveways and nursery pots",
+                flavor="Peppery and explosive; the crunch of desperate microgreens.",
             ),
             Grass(
-                plant="Common Clover",
-                location="Under the Chuo Line tracks",
-                flavor="Earthy, slightly crunchy",
+                plant="Japanese Knotweed (Shoots)",
+                location="Riverbanks and disturbed soil near railway embankments",
+                flavor="Sour and crunchy; tastes like a rhubarb heist.",
             ),
             Grass(
-                plant="Moss",
-                location="Nijika's backyard (sneaky)",
-                flavor="Tastes like damp regret",
+                plant="Mugwort (Artemisia)",
+                location="Dry roadsides and abandoned industrial lots",
+                flavor="Bitter and aromatic; the flavor of a tea you can't afford.",
+            ),
+            Grass(
+                plant="Common Chickweed",
+                location="Moist garden paths and nitrogen-rich waste ground",
+                flavor="Cool and grassy; like eating a salad in a cemetery.",
             ),
         ]
         db.add_all(initial_grass)
         await db.commit()
-        print("Database seeded: Ryo's secret menu added!")
+        print("Database seeded: Ryo's secret menu added.")
 
 
 async def get_all_grass(db: AsyncSession):

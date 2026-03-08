@@ -5,6 +5,7 @@ from database.models.users import User
 from schemas.users import UserCreate
 from core.security import get_pass_hash
 
+
 async def get_user_by_username(db: AsyncSession, username: str):
     result = await db.execute(select(User).where(User.username == username))
     return result.scalars().first()
