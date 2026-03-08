@@ -9,7 +9,7 @@ Blue Protocol is a high-performance foraging API. It provides a secure infrastru
 ---
 
 ### Technical Dossier
-* **Modern Tooling**: Managed by `uv` for lightning-fast dependency resolution and virtual environment isolation.
+* **Modern Tooling**: Managed by `uv` for lightning-fast dependency resolution and virtual environment isolation. Used `ruff` for linting and `bandit` for automated security scanning.
 * **Secure Gatekeeping**: JWT-based authentication via `PyJWT` and `OAuth2PasswordBearer`.
 * **Persistence**: Asynchronous SQLite integration using `SQLAlchemy 2.0` and `aiosqlite`.
 * **Data Integrity**: Strict Pydantic V2 schemas with custom `AfterValidator` logic for cryptographic password strength.
@@ -37,7 +37,8 @@ cd blue-protocol
 # Create environment and sync dependencies
 uv sync
 
-# Create a .env or use the provided .env.example (remove the .example)
+# setup .env
+cp .env.example .env
 
 # Awaken the engine
 uv run fastapi dev
