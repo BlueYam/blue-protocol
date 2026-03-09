@@ -3,7 +3,6 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sqlalchemy.future import select
 from typing import Annotated
 
-import random
 from database.connection import get_db
 from database.crud.grass_crud import (
     create_grass,
@@ -15,9 +14,11 @@ from database.crud.grass_crud import (
 from schemas.grass import GrassBase, GrassResponse, GrassUpdate
 from database.models.grass_models import Grass
 from database.models.users import User
-from api.deps import get_current_user
+from api.deps import get_current_user, ryo_mood_guard
 
-router = APIRouter(prefix="/grass-finder", tags=["grass"])
+router = APIRouter(
+    prefix="/grass-finder", tags=["grass"], dependencies=[Depends(ryo_mood_guard)]
+)
 
 CurrentUser = Annotated[User, Depends(get_current_user)]
 Session = Annotated[AsyncSession, Depends(get_db)]
@@ -55,7 +56,9 @@ async def grass_delete_endpoints(grass_id: int, db: Session, _user: CurrentUser)
 
 @router.get("/find/{grass_id}", response_model=GrassResponse)
 async def get_grass_by_id(
-    grass_id: int, db: Session, _user: CurrentUser
+    grass_id: int,
+    db: Session,
+    _user: CurrentUser,
 ):
     db_grass = await get_grass(db, grass_id)
 
@@ -66,7 +69,9 @@ async def get_grass_by_id(
 
 
 @router.get("/find-random")
-async def get_grass_random(db: Session):
+async def get_grass_random(
+    db: Session,
+):
     recommendation = await get_random_grass(db)
 
     if not recommendation:
@@ -81,14 +86,3 @@ async def get_grass_random(db: Session):
             "flavor": recommendation.flavor,
         },
     }
-
-
-@router.get("/mood")
-async def ryo_mood():
-    moods = [
-        "Thinking about bass lines",
-        "Starving",
-        "Ascending",
-        "Ignoring Nijika's texts",
-    ]
-    return {"status": random.choice(moods)}
