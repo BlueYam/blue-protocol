@@ -1,7 +1,7 @@
 from fastapi import FastAPI
 from contextlib import asynccontextmanager
 
-from api import grass_finder, auth
+from api import grass_finder, auth, user
 from core.config import CONFIG
 from database.connection import engine, AsyncSessionLocal
 from database.crud.grass_crud import seed_grass
@@ -36,3 +36,4 @@ async def main():
 
 app.include_router(grass_finder.router, prefix="/api")
 app.include_router(auth.router, prefix="/api")
+app.include_router(user.router, prefix="/api")

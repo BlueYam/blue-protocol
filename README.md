@@ -12,7 +12,7 @@ Blue Protocol is a high-performance foraging API. It provides a secure infrastru
 
 ### Technical Dossier
 * **Modern Tooling**: Managed by `uv` for lightning-fast dependency resolution and virtual environment isolation. Used `ruff` for linting and `bandit` for automated security scanning.
-* **Secure Gatekeeping**: JWT-based authentication via `PyJWT` and `OAuth2PasswordBearer`.
+* **Secure Gatekeeping**: JWT-based authentication vsa `PyJWT` and `OAuth2PasswordBearer`.
 * **Database**: Asynchronous SQLite integration using `SQLAlchemy 2.0` and `aiosqlite`.
 * **Data Integrity**: Strict Pydantic V2 schemas with custom `AfterValidator` logic for cryptographic password strength.
 
@@ -20,10 +20,18 @@ Blue Protocol is a high-performance foraging API. It provides a secure infrastru
 
 ### Locked Endpoints
 The following sectors require a valid Bearer Token:
+
+**Grass**
 - `POST /api/grass-finder/add` - Add new findings.
 - `PATCH /api/grass-finder/update/{grass_id}` - Modify existing intel.
 - `DELETE /api/grass-finder/delete/{grass_id}` - Erase the evidence.
 - `GET /api/grass-finder/find/{grass_id}` - Seek sustenance.
+
+<br>
+
+**User**
+- `GET /api/user/me` - Look into the mirror.
+- `DELETE /api/user/me` - Delete yourself from existence.
 
 ### Public Endpoints
 The following sectors are free to access without Bearer Token:

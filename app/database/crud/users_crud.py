@@ -21,6 +21,10 @@ async def create_user(db: AsyncSession, user_in: UserCreate):
     await db.refresh(db_user)
     return db_user
 
+async def delete_user(db: AsyncSession, db_user: User) -> None:
+    await db.delete(db_user)
+    await db.commit()
+
 
 async def get_user_by_id(db: AsyncSession, user_id: int):
     result = await db.execute(select(User).where(User.id == user_id))

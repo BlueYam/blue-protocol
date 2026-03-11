@@ -59,3 +59,7 @@ class UserResponse(UserBase):
 class Token(BaseModel):
     access_token: str
     token_type: str = "bearer"
+
+class DeleteAccountConfirmation(BaseModel):
+    password: str
+    confirm_text: str
