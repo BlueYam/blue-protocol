@@ -68,7 +68,7 @@ async def seed_grass(db: AsyncSession):
         ]
         db.add_all(initial_grass)
         await db.commit()
-        print("Database seeded: Ryo's secret menu added.")
+        print("Database seeded: Secret menu added.")
 
 
 async def get_grass(db: AsyncSession, grass_id: int) -> Grass | None:

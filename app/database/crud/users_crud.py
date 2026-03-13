@@ -21,6 +21,7 @@ async def create_user(db: AsyncSession, user_in: UserCreate):
     await db.refresh(db_user)
     return db_user
 
+
 async def update_user(db: AsyncSession, db_user: User, user_update: UserUpdate) -> User:
     update_data = user_update.model_dump(exclude_unset=True)
 

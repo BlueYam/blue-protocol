@@ -20,7 +20,7 @@ async def register_user(
     existing_user = await get_user_by_username(db, user_create.username)
     if existing_user:
         raise HTTPException(
-            status_code=400, detail="Mainstream Username: Username already registered."
+            status_code=400, detail="Clone Detected: Username already exist."
         )
 
     return await create_user(db, user_create)

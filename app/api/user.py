@@ -18,6 +18,7 @@ async def get_current_user_profile(
 ):
     return current_user
 
+
 @router.patch("/me", response_model=UserResponse)
 async def update_profile(
     user_update: UserUpdate,
@@ -26,6 +27,7 @@ async def update_profile(
 ):
     updated_user = await update_user(db, current_user, user_update)
     return updated_user
+
 
 @router.delete("/me", status_code=status.HTTP_204_NO_CONTENT)
 async def delete_profile(
