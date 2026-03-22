@@ -26,6 +26,8 @@ async def register_user(
     return await create_user(db, user_create)
 
 
+DUMMY_HASH = "$pbkdf2-sha256$29000$V0pJiXFubU0JIUQoxRgDQA$3NoTnV0zRXmx1.hGAl/uPnmZYXxPlanK12iDFY5zicc"
+
 @router.post("/login", response_model=Token)
 async def login_user(
     form_data: Annotated[OAuth2PasswordRequestForm, Depends()],
@@ -33,7 +35,11 @@ async def login_user(
 ) -> Token:
     user = await get_user_by_username(db, form_data.username)
 
-    if not user or not verify_pass(form_data.password, user.hashed_password):
+    hash_to_verify = user.hashed_password if user else DUMMY_HASH
+
+    is_password_correct = verify_pass(form_data.password, hash_to_verify)
+
+    if not user or not is_password_correct:
         raise HTTPException(
             status_code=status.HTTP_401_UNAUTHORIZED,
             detail="Access Denied: Invalid identification or passcode.",
